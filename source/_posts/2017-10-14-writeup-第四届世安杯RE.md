@@ -61,23 +61,9 @@ tags: [RE,writeup]
 
 则脚本如下：
 
-```python
-#!/usr/bin/env python
-#-*-coding: utf-8 -*-
+[hackme.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/hackme.py)
 
-
-flag = ''
-value = '5FF25E8B4E0EA3AAC793813D5F74A309912B49289367'
-value = [ord(i) for i in value.decode('hex')]
-for i in range(0x16):
-    temp = value[i]
-    v11 = 0
-    for j in range(i + 1):
-        v11 = 0x6D01788D * v11 + 0x3039
-    flag += chr((temp ^ v11) & 0xff)
-
-print flag
-```
+结果:
 
 ![](http://owhak23d7.bkt.clouddn.com/17-10-17/28790942.jpg)
 
@@ -95,19 +81,7 @@ print flag
 
 ???  原来真的是reverse.....于是脚本一下逆出来正常文件
 
-```python
-#!/usr/bin/env python
-#-*-coding:utf-8-*-
-
-
-inputfile = open('./reverseMe', 'rb')
-originfile = inputfile.read()
-refile = originfile[::-1]
-outputfile = open('./reverse', 'wb')
-outputfile.write(refile)
-inputfile.close()
-outputfile.close()
-```
+[reverseMe.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/reverseMe.py)
 
 python逆一下出来一个jpeg，自己改一下后缀
 
@@ -125,14 +99,8 @@ python逆一下出来一个jpeg，自己改一下后缀
 
 简单数学题。
 
-```python
-#!/usr/bin/env python
-#-*- coding: utf-8 -*-
+[zhenni.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/zhenni.py)
 
-
-for i in range(10000,99999):
-    if str(i*4)[::-1] == str(i):
-        print i
-```
+结果：
 
 ![](http://owhak23d7.bkt.clouddn.com/17-10-17/357165.jpg)
