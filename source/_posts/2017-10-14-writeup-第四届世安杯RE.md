@@ -61,7 +61,7 @@ tags: [RE,writeup]
 
 则脚本如下：
 
-[hackme.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/hackme.py)
+[hackme.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-Shianbei/rev-hackme/solver_hackme.py)
 
 结果:
 
@@ -81,7 +81,7 @@ tags: [RE,writeup]
 
 ???  原来真的是reverse.....于是脚本一下逆出来正常文件
 
-[reverseMe.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/reverseMe.py)
+[reverseMe.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-Shianbei/rev-reverseMe/solver_reverseMe.py)
 
 python逆一下出来一个jpeg，自己改一下后缀
 
@@ -99,7 +99,7 @@ python逆一下出来一个jpeg，自己改一下后缀
 
 简单数学题。
 
-[zhenni.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-shianbei/zhenni.py)
+[zhenni.py](https://github.com/edwardchoijc/ctf-writeups/blob/master/2017-Shianbei/misc-zhenni/solver_zhenni.py)
 
 结果：
 
