@@ -4,7 +4,7 @@ categories: re
 comments: true
 date: 2017-10-14 16:51:56
 type:
-tags: [RE,writeup]
+tags: [RE,writeup,CTF]
 ---
 
 带新人参加了一下第四届的世安杯，题都挺水的.....主办方一点诚意都没有....办得太烂了.....
