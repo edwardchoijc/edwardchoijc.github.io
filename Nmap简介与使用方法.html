@@ -1,0 +1,1048 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="TOOL,内网渗透," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/websiteicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="简介Nmap是一款开源免费的网络发现（Network Discovery）和安全审计（Security Auditing）工具，但是nmap也是有一些缺点的，比如说上手较难，但是难上手是相对的，与其他达到这种功能性的软件产品相比，还是比较容易上手的，但是这也不妨碍nmap成为世界千万安全专家列为必备的工具之一。 目前在市面上主要的端口扫描工具是X_Scan、SuperScan、nmap，其中在这里">
+<meta name="keywords" content="TOOL,内网渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nmap简介与使用方法">
+<meta property="og:url" content="https://edwardchoijc.github.io/Nmap简介与使用方法.html">
+<meta property="og:site_name" content="EDWARD&#39;s Blog">
+<meta property="og:description" content="简介Nmap是一款开源免费的网络发现（Network Discovery）和安全审计（Security Auditing）工具，但是nmap也是有一些缺点的，比如说上手较难，但是难上手是相对的，与其他达到这种功能性的软件产品相比，还是比较容易上手的，但是这也不妨碍nmap成为世界千万安全专家列为必备的工具之一。 目前在市面上主要的端口扫描工具是X_Scan、SuperScan、nmap，其中在这里">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/39969596.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/1336056.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/16468652.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/93258359.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/62941662.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/12986.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/50204929.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/23530764.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/92762100.jpg">
+<meta property="og:updated_time" content="2017-12-13T09:49:48.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nmap简介与使用方法">
+<meta name="twitter:description" content="简介Nmap是一款开源免费的网络发现（Network Discovery）和安全审计（Security Auditing）工具，但是nmap也是有一些缺点的，比如说上手较难，但是难上手是相对的，与其他达到这种功能性的软件产品相比，还是比较容易上手的，但是这也不妨碍nmap成为世界千万安全专家列为必备的工具之一。 目前在市面上主要的端口扫描工具是X_Scan、SuperScan、nmap，其中在这里">
+<meta name="twitter:image" content="http://owhak23d7.bkt.clouddn.com/17-9-22/39969596.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://edwardchoijc.github.io/Nmap简介与使用方法.html"/>
+
+
+
+
+
+  <title>Nmap简介与使用方法 | EDWARD's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dcc71352f8b2d3a3db519024d882ec69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EDWARD's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">For  Being  Better.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-web">
+          <a href="/categories/web" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edge"></i> <br />
+            
+            WEB
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-re">
+          <a href="/categories/re" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gitlab"></i> <br />
+            
+            RE
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-paw"></i> <br />
+            
+            Essay
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tool">
+          <a href="/categories/tool" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-keyboard-o"></i> <br />
+            
+            Tools & App
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-github-alt"></i> <br />
+            
+            Others
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-info-circle"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://edwardchoijc.github.io/Nmap简介与使用方法.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Edward Choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EDWARD's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Nmap简介与使用方法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T15:46:45+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index">
+                    <span itemprop="name">tool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/Nmap简介与使用方法.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Nmap是一款开源免费的网络发现（Network Discovery）和安全审计（Security Auditing）工具，但是nmap也是有一些缺点的，比如说上手较难，但是难上手是相对的，与其他达到这种功能性的软件产品相比，还是比较容易上手的，但是这也不妨碍nmap成为世界千万安全专家列为必备的工具之一。</p>
+<p>目前在市面上主要的端口扫描工具是X_Scan、SuperScan、nmap，其中在这里主推的是nmap，因为nmap具有以下的这一些优点：</p>
+<p>1、多种多样的参数，丰富的脚本库，满足用户的个人定制需求，其中脚本库还提供了很多强大的功能任你选择</p>
+<p>2、强大的可移植性，基本上能在所有的主流系统上运行，而且代码是开源的</p>
+<p>3、详细的文档说明，和强大的社区团队进行支持，方面新人上手</p>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li><p>windows:     <a href="http://jingyan.baidu.com/article/5bbb5a1b1e0a7713eba179cb.html" target="_blank" rel="noopener">在Windows上安装安全扫描工具nmap(图解)</a></p>
+</li>
+<li><p>linux(以ubuntu为例):  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nmap</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>Nmap的图形化界面是Zenmap，分布式框架为Dnamp</p>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h4 id="Nmap可以完成以下任务"><a href="#Nmap可以完成以下任务" class="headerlink" title="Nmap可以完成以下任务:"></a>Nmap可以完成以下任务:</h4><ul>
+<li>主机探测</li>
+<li>端口扫描</li>
+<li>版本检测</li>
+<li>系统检测</li>
+<li>支持探测脚本的编写</li>
+</ul>
+<h4 id="Nmap在实际中应用场合如下："><a href="#Nmap在实际中应用场合如下：" class="headerlink" title="Nmap在实际中应用场合如下："></a>Nmap在实际中应用场合如下：</h4><ul>
+<li>通过对设备或者防火墙的探测来审计它的安全性</li>
+<li>探测目标主机所开放的端口</li>
+<li>通过识别新的服务器审计网络的安全性</li>
+<li>探测网络上的主机</li>
+</ul>
+<p>端口扫描工具，即借助工具，试图了解所扫描IP提供的计算机网络服务类型（网络服务均与端口号相关），从而发现攻击弱点，常见服务对应端口号:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">服务</th>
+<th style="text-align:center">端口号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">80</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTPS</td>
+<td style="text-align:center">443</td>
+</tr>
+<tr>
+<td style="text-align:center">Telnet</td>
+<td style="text-align:center">23</td>
+</tr>
+<tr>
+<td style="text-align:center">FTP</td>
+<td style="text-align:center">21</td>
+</tr>
+<tr>
+<td style="text-align:center">SSH, SCP, 端口重定向</td>
+<td style="text-align:center">22</td>
+</tr>
+<tr>
+<td style="text-align:center">SMTP</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td style="text-align:center">POP3</td>
+<td style="text-align:center">110</td>
+</tr>
+<tr>
+<td style="text-align:center">WebLogic</td>
+<td style="text-align:center">7001</td>
+</tr>
+<tr>
+<td style="text-align:center">TOMCAT</td>
+<td style="text-align:center">8080</td>
+</tr>
+<tr>
+<td style="text-align:center">WIN2003远程登录</td>
+<td style="text-align:center">3389</td>
+</tr>
+<tr>
+<td style="text-align:center">Oracle数据库</td>
+<td style="text-align:center">1521</td>
+</tr>
+<tr>
+<td style="text-align:center">MSSQL</td>
+<td style="text-align:center">1433</td>
+</tr>
+<tr>
+<td style="text-align:center">MYSQL</td>
+<td style="text-align:center">3306</td>
+</tr>
+</tbody>
+</table>
+<h4 id="主机发现的一些用法"><a href="#主机发现的一些用法" class="headerlink" title="主机发现的一些用法"></a>主机发现的一些用法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-sL: List Scan 列表扫描，仅将指定的目标的IP列举出来，不进行主机发现。  </span><br><span class="line">  </span><br><span class="line">-sn: Ping Scan 只进行主机发现，不进行端口扫描。  </span><br><span class="line">  </span><br><span class="line">-Pn: 将所有指定的主机视作开启的，跳过主机发现的过程。  </span><br><span class="line">  </span><br><span class="line">-PS/PA/PU/PY[portlist]: 使用TCPSYN/ACK或SCTP INIT/ECHO方式进行发现。  </span><br><span class="line">  </span><br><span class="line">-PE/PP/PM: 使用ICMP echo, timestamp, and netmask 请求包发现主机。-PO[protocollist]: 使用IP协议包探测对方主机是否开启。  </span><br><span class="line">  </span><br><span class="line">-n/-R: -n表示不进行DNS解析；-R表示总是进行DNS解析。  </span><br><span class="line">  </span><br><span class="line">--dns-servers &lt;serv1[,serv2],...&gt;: 指定DNS服务器。  </span><br><span class="line">  </span><br><span class="line">--system-dns: 指定使用系统的DNS服务器  </span><br><span class="line">  </span><br><span class="line">--traceroute: 追踪每个路由节点</span><br></pre></td></tr></table></figure>
+<h4 id="端口扫描的一些用法"><a href="#端口扫描的一些用法" class="headerlink" title="端口扫描的一些用法"></a>端口扫描的一些用法</h4><ol>
+<li><p>扫描方式选项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-sS/sT/sA/sW/sM:指定使用 TCP SYN/Connect()/ACK/Window/Maimon scans的方式来对目标主机进行扫描。  </span><br><span class="line">  </span><br><span class="line">-sU: 指定使用UDP扫描方式确定目标主机的UDP端口状况。  </span><br><span class="line">  </span><br><span class="line">-sN/sF/sX: 指定使用TCP Null, FIN, and Xmas scans秘密扫描方式来协助探测对方的TCP端口状态。  </span><br><span class="line">  </span><br><span class="line">--scanflags &lt;flags&gt;: 定制TCP包的flags。  </span><br><span class="line">  </span><br><span class="line">-sI &lt;zombiehost[:probeport]&gt;: 指定使用idle scan方式来扫描目标主机（前提需要找到合适的zombie host）  </span><br><span class="line">  </span><br><span class="line">-sY/sZ: 使用SCTP INIT/COOKIE-ECHO来扫描SCTP协议端口的开放的情况。  </span><br><span class="line">  </span><br><span class="line">-sO: 使用IP protocol 扫描确定目标机支持的协议类型。  </span><br><span class="line">  </span><br><span class="line">-b &lt;FTP relay host&gt;: 使用FTP bounce scan扫描方式</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>端口参数与扫描顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-p &lt;port ranges&gt;: 扫描指定的端口  </span><br><span class="line">  </span><br><span class="line">-F: Fast mode – 快速模式，仅扫描TOP 100的端口  </span><br><span class="line">  </span><br><span class="line">-r: 不进行端口随机打乱的操作（如无该参数，nmap会将要扫描的端口以随机顺序方式扫描，以让nmap的扫描不易被对方防火墙检测到）。  </span><br><span class="line">  </span><br><span class="line">--top-ports &lt;number&gt;:扫描开放概率最高的number个端口（nmap的作者曾经做过大规模地互联网扫描，以此统计出网络上各种端口可能开放的概率。以此排列出最有可能开放端口的列表，具体可以参见文件：nmap-services。默认情况下，nmap会扫描最有可能的1000个TCP端口）  </span><br><span class="line">  </span><br><span class="line">--port-ratio &lt;ratio&gt;: 扫描指定频率以上的端口。与上述--top-ports类似，这里以概率作为参数，让概率大于--port-ratio的端口才被扫描。显然参数必须在在0到1之间，具体范围概率情况可以查看nmap-services文件。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>版本侦测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-sV: 指定让Nmap进行版本侦测  </span><br><span class="line">  </span><br><span class="line">--version-intensity &lt;level&gt;: 指定版本侦测强度（0-9），默认为7。数值越高，探测出的服务越准确，但是运行时间会比较长。  </span><br><span class="line">  </span><br><span class="line">--version-light: 指定使用轻量侦测方式 (intensity 2)  </span><br><span class="line">  </span><br><span class="line">--version-all: 尝试使用所有的probes进行侦测 (intensity 9)  </span><br><span class="line">  </span><br><span class="line">--version-trace: 显示出详细的版本侦测过程信息。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="部分操作具体演示"><a href="#部分操作具体演示" class="headerlink" title="部分操作具体演示"></a>部分操作具体演示</h4><ol>
+<li><p>用Nmap扫描特定IP地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/39969596.jpg" alt=""></p>
+</li>
+<li><p>用<code>-vv</code>对结果进行详细输出</p>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/1336056.jpg" alt=""></p>
+</li>
+<li><p>自行设置端口范围进行扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -p指定端口范围 &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/16468652.jpg" alt=""></p>
+</li>
+<li><p>指定端口号进行扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -p指定端口 &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/93258359.jpg" alt=""></p>
+</li>
+<li><p>对目标进行Ping扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/62941662.jpg" alt=""></p>
+</li>
+<li><p>路由跟踪</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -traceroute &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/12986.jpg" alt=""></p>
+</li>
+<li><p>扫描一个段的主机在线状况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP &lt;network address &gt; &lt;/CIDR&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/50204929.jpg" alt=""></p>
+</li>
+<li><p>操作系统探测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -O &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/23530764.jpg" alt=""></p>
+</li>
+<li><p>万能开关扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-22/92762100.jpg" alt=""></p>
+</li>
+<li><p>其他扫描方式</p>
+</li>
+</ol>
+<p><strong>SYN扫描</strong>：利用基本的SYN扫描方式测试其端口开放状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sS -T4 &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>FIN扫描</strong>：利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sF -T4 &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>ACK扫描</strong>：利用ACK扫描判断端口是否被过滤。针对ACK探测包，为被过滤的端口（无论打开或关闭）会回复RST包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sA -T4 &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p>扫描前不进行Ping扫描测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -Pn &lt;target ip&gt;</span><br></pre></td></tr></table></figure>
+<p>如果有一个ip地址列表，将这个保存为一个txt文件，和nmap在同意目录下，扫描这个txt的所有主机，命令为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -iL target.txt</span><br></pre></td></tr></table></figure>
+<p>版本检测扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV &lt;target ip</span><br></pre></td></tr></table></figure>
+<p>Nmap的帮助文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -help</span><br></pre></td></tr></table></figure>
+<p><u>refer: <a href="http://www.cnblogs.com/weihua2616/p/6599629.html" target="_blank" rel="noopener">扫描工具——Nmap用法详解</a></u></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>梦想还是要有的，万一实现了呢？</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.JPG" alt="Edward Choi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.JPG" alt="Edward Choi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>Post author:</strong>
+      Edward Choi
+    </li>
+    <li class="post-copyright-link">
+      <strong>Post link:</strong>
+      <a href="https://edwardchoijc.github.io/Nmap简介与使用方法.html" title="Nmap简介与使用方法">https://edwardchoijc.github.io/Nmap简介与使用方法.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TOOL/" rel="tag"># TOOL</a>
+          
+            <a href="/tags/内网渗透/" rel="tag"># 内网渗透</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SQLi-基础知识2.html" rel="next" title="SQLi-盲注的介绍">
+                <i class="fa fa-chevron-left"></i> SQLi-盲注的介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Metasploit的简单介绍与使用.html" rel="prev" title="Metasploit的简单介绍与使用">
+                Metasploit的简单介绍与使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.JPG"
+               alt="Edward Choi" />
+          <p class="site-author-name" itemprop="name">Edward Choi</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/edwardchoijc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap可以完成以下任务"><span class="nav-number">3.0.1.</span> <span class="nav-text">Nmap可以完成以下任务:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap在实际中应用场合如下："><span class="nav-number">3.0.2.</span> <span class="nav-text">Nmap在实际中应用场合如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主机发现的一些用法"><span class="nav-number">3.0.3.</span> <span class="nav-text">主机发现的一些用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口扫描的一些用法"><span class="nav-number">3.0.4.</span> <span class="nav-text">端口扫描的一些用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部分操作具体演示"><span class="nav-number">3.0.5.</span> <span class="nav-text">部分操作具体演示</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Edward Choi</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "515410b51a7a46f7b3a5f10a31e5bad7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

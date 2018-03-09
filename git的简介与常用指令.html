@@ -1,0 +1,1054 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="TOOL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/websiteicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="简介git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。  注意git和github的区别： git是一个版本控制工具github是一个用git做版本控制的项目托管平台。">
+<meta name="keywords" content="TOOL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git的简介与常用指令">
+<meta property="og:url" content="https://edwardchoijc.github.io/git的简介与常用指令.html">
+<meta property="og:site_name" content="EDWARD&#39;s Blog">
+<meta property="og:description" content="简介git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。  注意git和github的区别： git是一个版本控制工具github是一个用git做版本控制的项目托管平台。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-01-06T14:27:44.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git的简介与常用指令">
+<meta name="twitter:description" content="简介git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。  注意git和github的区别： git是一个版本控制工具github是一个用git做版本控制的项目托管平台。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://edwardchoijc.github.io/git的简介与常用指令.html"/>
+
+
+
+
+
+  <title>Git的简介与常用指令 | EDWARD's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dcc71352f8b2d3a3db519024d882ec69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EDWARD's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">For  Being  Better.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-web">
+          <a href="/categories/web" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edge"></i> <br />
+            
+            WEB
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-re">
+          <a href="/categories/re" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gitlab"></i> <br />
+            
+            RE
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-paw"></i> <br />
+            
+            Essay
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tool">
+          <a href="/categories/tool" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-keyboard-o"></i> <br />
+            
+            Tools & App
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-github-alt"></i> <br />
+            
+            Others
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-info-circle"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://edwardchoijc.github.io/git的简介与常用指令.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Edward Choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EDWARD's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git的简介与常用指令
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-08T09:51:48+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index">
+                    <span itemprop="name">tool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/git的简介与常用指令.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>git</code>是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<blockquote>
+<p>注意<code>git</code>和<code>github</code>的区别：</p>
+<p><code>git</code>是一个版本控制工具<br><code>github</code>是一个用git做版本控制的项目托管平台。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><h4 id="Configure-User-Information"><a href="#Configure-User-Information" class="headerlink" title="Configure User Information"></a>Configure User Information</h4><blockquote>
+<p>Configure user information for all local repositories</p>
+</blockquote>
+<ul>
+<li><p>Sets the name you want attached to your commit transactions</p>
+<p><code>git config --global user.name &quot;[name]&quot;</code></p>
+</li>
+</ul>
+<ul>
+<li><p>Sets the email you want attached to your commit transactions</p>
+<p><code>git config --global user.email &quot;[email address]&quot;</code></p>
+</li>
+</ul>
+<ul>
+<li><p>Enables helpful colorization of command line output</p>
+<p><code>git config --global color.ui auto</code></p>
+</li>
+</ul>
+<h4 id="Create-repositories"><a href="#Create-repositories" class="headerlink" title="Create repositories"></a>Create repositories</h4><blockquote>
+<p>Start a new repository or obtain one from an existing URL</p>
+</blockquote>
+<ul>
+<li><p>Creates a new local repository with the specified name</p>
+<p><code>git init [project-name]</code></p>
+</li>
+</ul>
+<ul>
+<li><p>Downloads a project and its entire version history</p>
+<p><code>git clone [url]</code></p>
+</li>
+</ul>
+<h4 id="Review-Changes"><a href="#Review-Changes" class="headerlink" title="Review Changes"></a>Review Changes</h4><blockquote>
+<p>Review edits and craft a commit transaction</p>
+</blockquote>
+<ul>
+<li><p>Lists all new or modified files to be committed</p>
+<p><code>git status</code></p>
+</li>
+</ul>
+<ul>
+<li><p>Shows file differences not yet staged</p>
+<p><code>git diff</code></p>
+</li>
+</ul>
+<ul>
+<li><p>Snapshots the file in preparation for versioning</p>
+<p><code>git add [file]</code></p>
+<blockquote>
+<p><code>git add .</code> can snapshot all files for versioning</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>Shows file differences between staging and the last file version</p>
+<p><code>git diff --staged</code></p>
+</li>
+<li><p>Unstages the file, but preserve its contents</p>
+<p><code>git reset [file]</code></p>
+</li>
+<li><p>Records file snapshots permanently in version history</p>
+<p><code>git commit -m &quot;[descriptive message]&quot;</code></p>
+</li>
+</ul>
+<h4 id="Group-Changes"><a href="#Group-Changes" class="headerlink" title="Group Changes"></a>Group Changes</h4><blockquote>
+<p>Name a series of commits and combine completed efforts</p>
+</blockquote>
+<ul>
+<li><p>Lists all local branches in the current repository</p>
+<p><code>git branch</code></p>
+</li>
+<li><p>Creates a new branch</p>
+<p><code>git branch [branch-name]</code></p>
+</li>
+<li><p>Switches to the specified branch and updates the working directory</p>
+<p><code>git checkout [branch-name]</code></p>
+</li>
+<li><p>Combines the specified branch’s history into the current branch</p>
+<p><code>git merge [branch]</code></p>
+</li>
+<li><p>Deletes the specified branch</p>
+<p><code>git branch -d [branch-name]</code></p>
+</li>
+</ul>
+<h4 id="Refactor-Filenames"><a href="#Refactor-Filenames" class="headerlink" title="Refactor Filenames"></a>Refactor Filenames</h4><blockquote>
+<p>Relocate and remove versioned files</p>
+</blockquote>
+<ul>
+<li><p>Deletes the file from the working directory and stages the deletion</p>
+<p>​</p>
+</li>
+<li><p>Removes the file from version control but preserves the file locally</p>
+<p>​</p>
+</li>
+<li><p>Changes the file name and prepares it for commit</p>
+</li>
+</ul>
+<h4 id="Suppress-Tracking"><a href="#Suppress-Tracking" class="headerlink" title="Suppress Tracking"></a>Suppress Tracking</h4><blockquote>
+<p>Exclude temporary files and paths</p>
+</blockquote>
+<ul>
+<li><p>A text file named <code>.gitignore</code> suppresses accidental versioning of<br>files and paths matching the specified patterns</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#This is the sample context in the file .gitignore</span><br><span class="line">*.log</span><br><span class="line">build/</span><br><span class="line">temp-*</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Lists all ignored files in this project</p>
+<p><code>git ls-files --other --ignored --exclude-standard</code></p>
+</li>
+</ul>
+<h4 id="Save-Fragments"><a href="#Save-Fragments" class="headerlink" title="Save Fragments"></a>Save Fragments</h4><blockquote>
+<p>Shelve and restore incomplete changes</p>
+</blockquote>
+<ul>
+<li><p>Temporarily stores all modified tracked files</p>
+<p><code>git stash</code></p>
+</li>
+<li><p>Restores the most recently stashed files</p>
+<p><code>git stash pop</code></p>
+</li>
+<li><p>Lists all stashed changesets</p>
+<p><code>git stash list</code></p>
+</li>
+<li><p>Discards the most recently stashed changeset</p>
+<p><code>git stash drop</code></p>
+</li>
+</ul>
+<h4 id="Review-History"><a href="#Review-History" class="headerlink" title="Review History"></a>Review History</h4><blockquote>
+<p>Browse and inspect the evolution of project files</p>
+</blockquote>
+<ul>
+<li><p>Lists version history for the current branch</p>
+<p><code>git log</code></p>
+</li>
+<li><p>Lists version history for a file, including renames</p>
+<p><code>git log --follow [file]</code></p>
+</li>
+<li><p>Shows content differences between two branches</p>
+<p><code>git diff [first-branch]...[second-branch]</code></p>
+</li>
+<li><p>Outputs metadata and content changes of the specified commit</p>
+<p><code>git show [commit]</code></p>
+</li>
+</ul>
+<h4 id="Redo-Commits"><a href="#Redo-Commits" class="headerlink" title="Redo Commits"></a>Redo Commits</h4><blockquote>
+<p>Erase mistakes and craft replacement history</p>
+</blockquote>
+<ul>
+<li><p>Undoes all commits after [commit], preserving changes locally</p>
+<p><code>git reset [commit]</code></p>
+</li>
+<li><p>Discards all history and changes back to the specified commit</p>
+<p><code>git reset --hard [commit]</code></p>
+</li>
+</ul>
+<h4 id="Synchronize-Changes"><a href="#Synchronize-Changes" class="headerlink" title="Synchronize Changes"></a>Synchronize Changes</h4><blockquote>
+<p>Register a repository bookmark and exchange version history</p>
+</blockquote>
+<ul>
+<li><p>Downloads all history from the repository bookmark</p>
+<p><code>git fetch [bookmark]</code></p>
+</li>
+<li><p>Combines bookmark’s branch into current local branch</p>
+<p><code>git merge [bookmark]/[branch]</code></p>
+</li>
+<li><p>Uploads all local branch commits to GitHub</p>
+<p><code>git push [alias] [branch]</code></p>
+</li>
+<li><p>Downloads bookmark history and incorporates changes</p>
+<p><code>git pull</code></p>
+</li>
+</ul>
+<h4 id="Download-the-Specific-File-Directory-from-Github"><a href="#Download-the-Specific-File-Directory-from-Github" class="headerlink" title="Download the Specific File/Directory from Github"></a>Download the Specific File/Directory from Github</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir project_folder</span><br><span class="line"><span class="built_in">cd</span> project_folder</span><br><span class="line">git init</span><br><span class="line">git remote add -f origin &lt;url&gt;</span><br><span class="line">git config core.sparsecheckout <span class="literal">true</span></span><br><span class="line"><span class="built_in">echo</span> “fileORdir_you_want” &gt;&gt; .git/info/sparse-checkout</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>梦想还是要有的，万一实现了呢？</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.JPG" alt="Edward Choi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.JPG" alt="Edward Choi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>Post author:</strong>
+      Edward Choi
+    </li>
+    <li class="post-copyright-link">
+      <strong>Post link:</strong>
+      <a href="https://edwardchoijc.github.io/git的简介与常用指令.html" title="Git的简介与常用指令">https://edwardchoijc.github.io/git的简介与常用指令.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TOOL/" rel="tag"># TOOL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/writeup-2017Hitcon-Qual.html" rel="next" title="Writeup —— 2017Hitcon_Qual">
+                <i class="fa fa-chevron-left"></i> Writeup —— 2017Hitcon_Qual
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/CTF线下AWD经验总结.html" rel="prev" title="CTF线下AWD经验总结">
+                CTF线下AWD经验总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.JPG"
+               alt="Edward Choi" />
+          <p class="site-author-name" itemprop="name">Edward Choi</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/edwardchoijc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用指令"><span class="nav-number">2.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-User-Information"><span class="nav-number">2.0.1.</span> <span class="nav-text">Configure User Information</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-repositories"><span class="nav-number">2.0.2.</span> <span class="nav-text">Create repositories</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Review-Changes"><span class="nav-number">2.0.3.</span> <span class="nav-text">Review Changes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Group-Changes"><span class="nav-number">2.0.4.</span> <span class="nav-text">Group Changes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Refactor-Filenames"><span class="nav-number">2.0.5.</span> <span class="nav-text">Refactor Filenames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Suppress-Tracking"><span class="nav-number">2.0.6.</span> <span class="nav-text">Suppress Tracking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Save-Fragments"><span class="nav-number">2.0.7.</span> <span class="nav-text">Save Fragments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Review-History"><span class="nav-number">2.0.8.</span> <span class="nav-text">Review History</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redo-Commits"><span class="nav-number">2.0.9.</span> <span class="nav-text">Redo Commits</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Synchronize-Changes"><span class="nav-number">2.0.10.</span> <span class="nav-text">Synchronize Changes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-the-Specific-File-Directory-from-Github"><span class="nav-number">2.0.11.</span> <span class="nav-text">Download the Specific File/Directory from Github</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Edward Choi</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "515410b51a7a46f7b3a5f10a31e5bad7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

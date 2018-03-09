@@ -1,0 +1,982 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WEB,SQLi," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/websiteicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="此处介绍一些 mysql 注入的一些基础知识。">
+<meta name="keywords" content="WEB,SQLi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLi-基础知识">
+<meta property="og:url" content="https://edwardchoijc.github.io/SQLi-基础知识.html">
+<meta property="og:site_name" content="EDWARD&#39;s Blog">
+<meta property="og:description" content="此处介绍一些 mysql 注入的一些基础知识。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-21/99498494.jpg">
+<meta property="og:updated_time" content="2017-10-14T08:58:10.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLi-基础知识">
+<meta name="twitter:description" content="此处介绍一些 mysql 注入的一些基础知识。">
+<meta name="twitter:image" content="http://owhak23d7.bkt.clouddn.com/17-9-21/99498494.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://edwardchoijc.github.io/SQLi-基础知识.html"/>
+
+
+
+
+
+  <title>SQLi-基础知识 | EDWARD's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dcc71352f8b2d3a3db519024d882ec69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EDWARD's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">For  Being  Better.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-web">
+          <a href="/categories/web" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edge"></i> <br />
+            
+            WEB
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-re">
+          <a href="/categories/re" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gitlab"></i> <br />
+            
+            RE
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-paw"></i> <br />
+            
+            Essay
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tool">
+          <a href="/categories/tool" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-keyboard-o"></i> <br />
+            
+            Tools & App
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-github-alt"></i> <br />
+            
+            Others
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-info-circle"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://edwardchoijc.github.io/SQLi-基础知识.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Edward Choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EDWARD's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                SQLi-基础知识
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-19T22:06:13+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/SQLi-基础知识.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>此处介绍一些 mysql 注入的一些基础知识。</p>
+<a id="more"></a>
+<h2 id="注入的分类-——-仁者见仁，智者见智"><a href="#注入的分类-——-仁者见仁，智者见智" class="headerlink" title="注入的分类 —— 仁者见仁，智者见智"></a>注入的分类 —— 仁者见仁，智者见智</h2><p>个人认为分类已经是够全面了。理解不了跳过，当你完全看完整个学习过程后再回头看这段。</p>
+<h4 id="基于从服务器接收到的响应"><a href="#基于从服务器接收到的响应" class="headerlink" title="基于从服务器接收到的响应"></a>基于从服务器接收到的响应</h4><ul>
+<li>基于错误的SQL注入</li>
+<li>联合查询的类型</li>
+<li>堆查询注射</li>
+<li>SQL盲注<ul>
+<li>基于布尔SQL盲注</li>
+<li>基于时间的SQL盲注</li>
+<li>基于报错的SQL盲注 </li>
+</ul>
+</li>
+</ul>
+<h4 id="基于如何处理输入的SQL查询（数据类型）"><a href="#基于如何处理输入的SQL查询（数据类型）" class="headerlink" title="基于如何处理输入的SQL查询（数据类型）"></a>基于如何处理输入的SQL查询（数据类型）</h4><ul>
+<li>基于字符串</li>
+<li>数字或整数为基础的</li>
+</ul>
+<h4 id="基于程度和顺序的注入（哪里发生了影响）"><a href="#基于程度和顺序的注入（哪里发生了影响）" class="headerlink" title="基于程度和顺序的注入（哪里发生了影响）"></a>基于程度和顺序的注入（哪里发生了影响）</h4><ul>
+<li>一阶注射</li>
+<li>二阶注射</li>
+</ul>
+<blockquote>
+<p>一阶注射是指输入的注射语句对WEB直接产生了影响，出现了结果；</p>
+<p>二阶注入类似存储型XSS，是指输入提交的语句，无法直接对WEB应用程序产生影响，通过其它的辅助间接的对WEB产生危害，这样的就被称为是二阶注入</p>
+</blockquote>
+<h4 id="基于注入点的位置上的"><a href="#基于注入点的位置上的" class="headerlink" title="基于注入点的位置上的"></a>基于注入点的位置上的</h4><ul>
+<li>通过用户输入的表单域的注射</li>
+<li>通过 cookie 注射</li>
+<li>通过服务器变量注射（基于头部信息的注射）</li>
+</ul>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><h4 id="系统函数（介绍几个常用的）"><a href="#系统函数（介绍几个常用的）" class="headerlink" title="系统函数（介绍几个常用的）"></a>系统函数（介绍几个常用的）</h4><ul>
+<li>MySQL 版本  <code>version()</code></li>
+<li>数据库用户名  <code>user()</code></li>
+<li>数据库名  <code>database()</code></li>
+<li>数据库路径  <code>@@datadir</code></li>
+<li>操作系统版本  <code>@@version_compile_os</code></li>
+</ul>
+<h4 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h4><blockquote>
+<p>详细介绍：<a href="http://www.cnblogs.com/lcamry/p/5715634.html" target="_blank" rel="noopener">SQL注入中连接字符串常用函数</a></p>
+</blockquote>
+<ul>
+<li>没有分隔符地连接字符串  <code>concat(str1,str2,...)</code></li>
+<li>含有分隔符地连接字符串  <code>concat_ws(separator,str1,str2,...)</code></li>
+<li>连接一个组的所有字符串，并以分隔符分隔每一条数据  <code>group_concat(str1,str2,...) SEPARATOR str_val</code></li>
+</ul>
+<h4 id="一般用于尝试的语句"><a href="#一般用于尝试的语句" class="headerlink" title="一般用于尝试的语句"></a>一般用于尝试的语句</h4><blockquote>
+<p>–+可以用#替换。#的url编码为%23</p>
+</blockquote>
+<ul>
+<li><code>or 1=1--+</code></li>
+<li><code>&#39;or 1=1--+</code></li>
+<li><code>&quot;or 1=1--+</code></li>
+<li><code>) or 1=1--+</code></li>
+<li><code>&#39;) or 1=1--+</code></li>
+<li><code>&quot;) or 1=1--+</code></li>
+<li><code>&quot;)) or 1=1--+</code></li>
+</ul>
+<p>一般的代码为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$sql=<span class="string">"SELECT  * FROM  users  WHERE  id='$id'  LIMIT  0,1"</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>此处考虑两个点，一个是闭合前面你的 <code>&#39;</code> 或者 <code>&quot;</code> 。另一个是处理后面的 <code>&#39;</code> 或者 <code>&quot;</code> ，这一般采用两种思路，闭合后面的引号或者采用 <code>--+</code> 或者 <code>#</code> (%23) 注释掉</p>
+</blockquote>
+<h4 id="union操作符的介绍"><a href="#union操作符的介绍" class="headerlink" title="union操作符的介绍"></a>union操作符的介绍</h4><p>UNION操作符用于合并两个或多个SELECT语句的结果集。请注意，UNION内部的SELECT<br>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。</p>
+<ul>
+<li><p>UNION语法</p>
+<blockquote>
+<p>UNION结果集中的列名总是等于UNION中第一个SELECT语句中的列名。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UNION ALL语法</p>
+<blockquote>
+<p>默认地，UNION操作符选取不同的值。如果允许重复的值，请使用 UNION ALL</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="SQL中的逻辑运算"><a href="#SQL中的逻辑运算" class="headerlink" title="SQL中的逻辑运算"></a>SQL中的逻辑运算</h4><p>e.g.  下面三者有什么区别？</p>
+<ol>
+<li><code>select * from users where id=1 and 1=1</code></li>
+<li><code>select * from users where id=1 &amp;&amp; 1=1</code></li>
+<li><code>select * from users where id=1 &amp; 1=1</code></li>
+</ol>
+<p>explain:  1和2是一样的，表达的意思是<code>id=1</code>条件和<code>1=1</code>条件进行与运算。而3的意思是<code>id=1</code>条件与<code>1</code>进行<code>&amp;</code>位操作，<code>id=1</code>被当作 true，与<code>1</code>进行<code>&amp;</code>运算结果还是1，<br>再进行<code>=</code>操作，<code>1=1</code>，还是1</p>
+<blockquote>
+<p><code>&amp;</code>的优先级大于<code>=</code>。</p>
+</blockquote>
+<h2 id="注入流程"><a href="#注入流程" class="headerlink" title="注入流程"></a>注入流程</h2><p><img src="http://owhak23d7.bkt.clouddn.com/17-9-21/99498494.jpg" alt=""></p>
+<p>我们的数据库存储的数据按照上图的形式，一个数据库当中有很多的数据表，数据表当中有很多的列，每一列当中存储着数据。我们注入的过程就是先拿到数据库名，在获取到当前数据库名下的数据表，再获取当前数据表下的列，最后获取数据。</p>
+<p>Mysql有一个系统数据库<code>information_schema</code>，存储着所有的数据库的相关信息，一般情况下，我们利用该表可以进行一次完整的注入。以下为一般的操作语句：</p>
+<p>猜数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select schema_name from information_schema.schemata</span><br></pre></td></tr></table></figure>
+<p>猜某库的数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select table_name from information_schema.tables where table_schema=&apos;xxxx&apos;</span><br></pre></td></tr></table></figure>
+<p>猜某表的所有列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select column_name from information_schema.columns where table_name=&apos;xxx&apos;</span><br></pre></td></tr></table></figure>
+<p>获取某列的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select xxxxx from xxxxx</span><br></pre></td></tr></table></figure>
+<p><u>refer:  mysql注入天书，百度一下就能找到</u></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>梦想还是要有的，万一实现了呢？</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.JPG" alt="Edward Choi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.JPG" alt="Edward Choi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>Post author:</strong>
+      Edward Choi
+    </li>
+    <li class="post-copyright-link">
+      <strong>Post link:</strong>
+      <a href="https://edwardchoijc.github.io/SQLi-基础知识.html" title="SQLi-基础知识">https://edwardchoijc.github.io/SQLi-基础知识.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WEB/" rel="tag"># WEB</a>
+          
+            <a href="/tags/SQLi/" rel="tag"># SQLi</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python-多线程.html" rel="next" title="Python —— (4)多线程">
+                <i class="fa fa-chevron-left"></i> Python —— (4)多线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SQLi-基础知识2.html" rel="prev" title="SQLi-盲注的介绍">
+                SQLi-盲注的介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.JPG"
+               alt="Edward Choi" />
+          <p class="site-author-name" itemprop="name">Edward Choi</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/edwardchoijc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入的分类-——-仁者见仁，智者见智"><span class="nav-number">1.</span> <span class="nav-text">注入的分类 —— 仁者见仁，智者见智</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于从服务器接收到的响应"><span class="nav-number">1.0.1.</span> <span class="nav-text">基于从服务器接收到的响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于如何处理输入的SQL查询（数据类型）"><span class="nav-number">1.0.2.</span> <span class="nav-text">基于如何处理输入的SQL查询（数据类型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于程度和顺序的注入（哪里发生了影响）"><span class="nav-number">1.0.3.</span> <span class="nav-text">基于程度和顺序的注入（哪里发生了影响）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于注入点的位置上的"><span class="nav-number">1.0.4.</span> <span class="nav-text">基于注入点的位置上的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用函数"><span class="nav-number">2.</span> <span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统函数（介绍几个常用的）"><span class="nav-number">2.0.1.</span> <span class="nav-text">系统函数（介绍几个常用的）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串连接函数"><span class="nav-number">2.0.2.</span> <span class="nav-text">字符串连接函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般用于尝试的语句"><span class="nav-number">2.0.3.</span> <span class="nav-text">一般用于尝试的语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#union操作符的介绍"><span class="nav-number">2.0.4.</span> <span class="nav-text">union操作符的介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL中的逻辑运算"><span class="nav-number">2.0.5.</span> <span class="nav-text">SQL中的逻辑运算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注入流程"><span class="nav-number">3.</span> <span class="nav-text">注入流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Edward Choi</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "515410b51a7a46f7b3a5f10a31e5bad7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

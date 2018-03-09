@@ -1,0 +1,1013 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WEB,SQLi," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/websiteicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="何为盲注？盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显 到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。从 background-1 中，我们可以知道盲注分为三类：  基于布尔 SQL 盲注 基于时间的 SQL 盲注 基于报错的 SQL 盲注   知识点太多了，这里只能简单列出来大致讲解一下。">
+<meta name="keywords" content="WEB,SQLi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLi-盲注的介绍">
+<meta property="og:url" content="https://edwardchoijc.github.io/SQLi-基础知识2.html">
+<meta property="og:site_name" content="EDWARD&#39;s Blog">
+<meta property="og:description" content="何为盲注？盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显 到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。从 background-1 中，我们可以知道盲注分为三类：  基于布尔 SQL 盲注 基于时间的 SQL 盲注 基于报错的 SQL 盲注   知识点太多了，这里只能简单列出来大致讲解一下。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-30/26445401.jpg">
+<meta property="og:image" content="http://owhak23d7.bkt.clouddn.com/17-9-30/34526890.jpg">
+<meta property="og:updated_time" content="2017-10-14T08:58:07.166Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLi-盲注的介绍">
+<meta name="twitter:description" content="何为盲注？盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显 到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。从 background-1 中，我们可以知道盲注分为三类：  基于布尔 SQL 盲注 基于时间的 SQL 盲注 基于报错的 SQL 盲注   知识点太多了，这里只能简单列出来大致讲解一下。">
+<meta name="twitter:image" content="http://owhak23d7.bkt.clouddn.com/17-9-30/26445401.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://edwardchoijc.github.io/SQLi-基础知识2.html"/>
+
+
+
+
+
+  <title>SQLi-盲注的介绍 | EDWARD's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dcc71352f8b2d3a3db519024d882ec69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EDWARD's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">For  Being  Better.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-web">
+          <a href="/categories/web" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edge"></i> <br />
+            
+            WEB
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-re">
+          <a href="/categories/re" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gitlab"></i> <br />
+            
+            RE
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-paw"></i> <br />
+            
+            Essay
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tool">
+          <a href="/categories/tool" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-keyboard-o"></i> <br />
+            
+            Tools & App
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-github-alt"></i> <br />
+            
+            Others
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-info-circle"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://edwardchoijc.github.io/SQLi-基础知识2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Edward Choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EDWARD's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                SQLi-盲注的介绍
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-21T22:06:13+08:00">
+                2017-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/SQLi-基础知识2.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>何为盲注？盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显 到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。从 background-1 中，我们可以知道盲注分为三类：</p>
+<ul>
+<li>基于布尔 SQL 盲注</li>
+<li>基于时间的 SQL 盲注</li>
+<li>基于报错的 SQL 盲注</li>
+</ul>
+<blockquote>
+<p>知识点太多了，这里只能简单列出来大致讲解一下。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="基于布尔-SQL-盲注-——-构造逻辑判断"><a href="#基于布尔-SQL-盲注-——-构造逻辑判断" class="headerlink" title="基于布尔 SQL 盲注 —— 构造逻辑判断"></a>基于布尔 SQL 盲注 —— 构造逻辑判断</h2><p>我们可以利用逻辑判断进行</p>
+<h4 id="截取字符串"><a href="#截取字符串" class="headerlink" title="截取字符串"></a>截取字符串</h4><ol>
+<li><p>截取字符串 <code>MID(column_name,start[,length])</code></p>
+<blockquote>
+<p>column_name —— 必需。要提取字符的字段。</p>
+<p>start —— 必需。规定开始位置（起始值是 1）。</p>
+<p>length —— 可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本。</p>
+</blockquote>
+</li>
+<li><p>截取字符串 <code>substring(string, start, length)</code> or <code>substr(string, start, length)</code></p>
+</li>
+<li><p>得到字符串左部指定个数的字符 <code>left ( string, n )</code></p>
+</li>
+</ol>
+<blockquote>
+<p> <a href="http://www.cnblogs.com/lcamry/p/5504374.html" target="_blank" rel="noopener">截取字符串相关函数详情</a> （这个还是要看下）</p>
+</blockquote>
+<h4 id="ASCII转换函数"><a href="#ASCII转换函数" class="headerlink" title="ASCII转换函数"></a>ASCII转换函数</h4><ol>
+<li><code>ascii(object)</code>将某个字符转换 为ascii值</li>
+<li><code>ord()</code> 将某个字符转换 为ascii值</li>
+</ol>
+<h4 id="regexp正则注入"><a href="#regexp正则注入" class="headerlink" title="regexp正则注入"></a>regexp正则注入</h4><blockquote>
+<p>详细介绍：<a href="http://www.cnblogs.com/lcamry/articles/5717442.html" target="_blank" rel="noopener">正则注入介绍</a></p>
+</blockquote>
+<p>e.g. <code>select user() regexp &#39;^[a-z]&#39;</code></p>
+<p>explain：<code>user()</code>结果为 root，<code>regexp</code>为匹配 root 的正则表达式。 第二位可以用 <code>select user() regexp &#39;^ro&#39;</code>来进行。</p>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-30/26445401.jpg" alt=""></p>
+<p>当正确的时候显示结果为 1，不正确的时候显示结果为 0</p>
+<p>因此，我们可以通过if 语句的条件判断，返回一些条件句，比如 if 等构造一个判断。根据返回结果是否等 于 0 或者 1 进行判断。</p>
+<p>e.g.  <code>select * from users where id=1 and 1=(if((user() regexp &#39;^r&#39;),1,0))</code> </p>
+<p>e.g. <code>select * from users where id=1 and 1=(select 1 from information_schema.tables where table_schema=&#39;security&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</code></p>
+<p>explain: 这里利用 select 构造了一个判断语句。我们只需要更换 regexp 表达式即可。</p>
+<blockquote>
+<p><code>&#39;^u[a-z]&#39;</code>  -&gt; <code>&#39;^us[a-z]&#39;</code>  -&gt; <code>&#39;^use[a-z]&#39;</code>  -&gt; <code>&#39;^user[a-z]&#39;</code> -&gt; FALSE</p>
+</blockquote>
+<ul>
+<li><p>如何知道匹配结束了？</p>
+<blockquote>
+<p>这里大部分根据一般的命名方式（经验）就可以判断。但是如何你在 无法判断的情况下，可以用 <code>table_name regexp &#39;^username\$ &#39;</code>来进行判断。是从开头进行 匹配，\$是从结尾开始判断。更多的语法可以参考 mysql 使用手册进行了解。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>table_name 有好几个，我们只得到了一个 user，如何知道其他的？</p>
+<blockquote>
+<p>这里可能会有人认为使用<code>limit 0,1</code>改为<code>limit 1,1</code>。</p>
+<p>但是这种做法是错误的，<code>limit</code>作用在前面的<code>select</code>语句中，而不是<code>regexp</code>。那我们该如何选择。其实在<code>regexp</code>中我们是取匹配<code>table_name</code>中的内容，只要<code>table_name</code>中有的内容，我们用<code>regexp</code>都能够匹配到。因此上述语句不仅仅可以选择user，还可以匹配其他项。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="like匹配注入"><a href="#like匹配注入" class="headerlink" title="like匹配注入"></a>like匹配注入</h4><p>和上述的正则类似，mysql在匹配的时候我们可以用like进行匹配。</p>
+<p>e.g. <code>select user() like &#39;ro%&#39;</code></p>
+<p><img src="http://owhak23d7.bkt.clouddn.com/17-9-30/34526890.jpg" alt=""></p>
+<h2 id="基于报错的-SQL-盲注-——-构造payload让信息通过错误提示回显出来"><a href="#基于报错的-SQL-盲注-——-构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的 SQL 盲注 —— 构造payload让信息通过错误提示回显出来"></a>基于报错的 SQL 盲注 —— 构造payload让信息通过错误提示回显出来</h2><h4 id="数据计数时重复造成的错误"><a href="#数据计数时重复造成的错误" class="headerlink" title="数据计数时重复造成的错误"></a>数据计数时重复造成的错误</h4><p>e.g. <code>select count(*) from information_schema.tables group by concat(version(),floor(rand(0)*2))</code></p>
+<p>explain: 此处有三个点，一是需要<code>concat</code>计数，二是<code>floor</code>，取得0 or 1，进行数据的重复，三是<code>group by</code>进行分组，但具体原理解释不是很通，大致原理为分组后数据计数时重复造成的错误。也有解释为mysql的bug的问题。但是此处需要将<code>rand(0)</code>, <code>rand()</code>需要多试几次才行。</p>
+<ul>
+<li><p>如果关键的表被禁用了，可以使用这种形式</p>
+<p><code>select count(*) from (select 1 union select null union select !1) group by concat(version(),floor(rand(0)*2))</code></p>
+</li>
+</ul>
+<ul>
+<li><p>如果rand被禁用了, 可以使用用户变量来报错</p>
+<p><code>select min(@a:=1) from information_schema.tables group by concat(password,@a:=(@a+1)%2)</code></p>
+</li>
+</ul>
+<h4 id="double数值类型超出范围"><a href="#double数值类型超出范围" class="headerlink" title="double数值类型超出范围"></a>double数值类型超出范围</h4><p>e.g.  <code>select exp(~(select * FROM(SELECT USER())a))</code></p>
+<blockquote>
+<p>exp()为以 e 为底的对数函数；版本在 5.5.5 及其以上</p>
+<p>详细介绍： <a href="http://www.cnblogs.com/lcamry/articles/5509124.html" target="_blank" rel="noopener">使用exp进行SQL报错注入</a></p>
+</blockquote>
+<p>由于当传递一个大于<u>709</u>的值时，函数<code>exp()</code>就会引起一个溢出错误。而将0按位取反就会返回“<u>18446744073709551615</u>”，再加上函数成功执行后返回<u>0</u>的缘故，我们将成功执行的函数<em>取反</em>就会得到最大的无符号<em>BIGINT</em>值。</p>
+<p>所以，我们通过子查询与按位求反，造成一个<strong><em>DOUBLE overflow error</em></strong>，并借由此注出数据。</p>
+<h4 id="BIGINT溢出错误"><a href="#BIGINT溢出错误" class="headerlink" title="BIGINT溢出错误"></a>BIGINT溢出错误</h4><p>e.g.  <code>select !(select * from (select  user())x) - ~0</code>  (后面的 ‘-‘ 是减号)</p>
+<blockquote>
+<p>bigint超出范围；~0 是对0逐位取反。版本在 5.5.5 及其以上，之下的版本对于整数溢出不会发送任何消息</p>
+<p>详情介绍： <a href="http://www.cnblogs.com/lcamry/articles/5509112.html" target="_blank" rel="noopener">基于BIGINT溢出错误的SQL注入</a></p>
+</blockquote>
+<p>数据类型<em>BIGINT</em>的长度为<strong>8</strong>字节，也就是说，长度为<strong>64比特</strong>。这种数据类型最大的有符号值，用二进制、十六进制和十进制的表示形式分别为“<u>0b0111111111111111111111111111111111111111111111111111111111111111</u>”、“<u>0x7fffffffffffffff</u>”和“<u>9223372036854775807</u>”。 当对这个值进行某些数值运算的时候，比如加法运算，就会引起“<strong><em>BIGINT value is out of range</em></strong>”错误（无符号整数同理）。</p>
+<p>我们知道，如果一个查询成功返回，其返回值为0，所以对其进行逻辑非的话就会变成1。所以，只要我们能够组合好逐位取反和逻辑取反运算，我们就能利用溢出错误来成功的注入查询。</p>
+<h4 id="xpath-语法错误"><a href="#xpath-语法错误" class="headerlink" title="xpath 语法错误"></a>xpath 语法错误</h4><p>e.g.  <code>extractvalue(1,concat(0x7e,(select @@version),0x7e))</code></p>
+<p>e.g.  <code>updatexml(1,concat(0x7e,(select @@version),0x7e),1)</code></p>
+<p>mysql 对xml数据进行查询和修改的xpath函数，xpath语法错误</p>
+<h4 id="mysql重复特性"><a href="#mysql重复特性" class="headerlink" title="mysql重复特性"></a>mysql重复特性</h4><p>e.g.  <code>select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x</code></p>
+<p>此处重复了 version，所以报错。</p>
+<h2 id="基于时间的-SQL-盲注-——-延时注入"><a href="#基于时间的-SQL-盲注-——-延时注入" class="headerlink" title="基于时间的 SQL 盲注 —— 延时注入"></a>基于时间的 SQL 盲注 —— 延时注入</h2><h4 id="sleep-函数"><a href="#sleep-函数" class="headerlink" title="sleep()函数"></a>sleep()函数</h4><p>e.g.  <code>If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</code></p>
+<p>if 判断语句，条件为假， 执行 sleep</p>
+<blockquote>
+<p>如遇到以下这种利用 sleep()延时注入语句<code>select sleep(find_in_set(mid(@@version,1,1), &#39;0,1,2,3,4,5,6,7,8,9,.&#39;))</code><br>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可<br>取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>
+</blockquote>
+<h4 id="BENCHMARK-函数"><a href="#BENCHMARK-函数" class="headerlink" title="BENCHMARK()函数"></a>BENCHMARK()函数</h4><p>e.g.  <code>UNION SELECT IF(SUBSTRIN</code></p>
+<p><code>G(current,1,1)=CHAR(119),BENCHMARK(5000000,ENCODE(‘M SG’,’by 5 seconds’)),null) FROM (select database() as current) as tb1</code></p>
+<p>BENCHMARK(count,expr)用于测试函数的性能，参数一为次数，二为要执行的表达式。</p>
+<p>可以让函数执行若干次，返回结果比平时要长，通过时间长短的变化，判断语句是否执行成功。这是一种边信道攻击，在运行过程中占用大量的cpu资源。</p>
+<p>推荐使用 sleep()函数进行注入。</p>
+<blockquote>
+<p>这里配上一个《白帽子讲安全》的表:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据库类型</th>
+<th style="text-align:center">注入方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">MySQL</td>
+<td style="text-align:center">BENCHMARK(100000,MD5(1))  or sleep(5)</td>
+</tr>
+<tr>
+<td style="text-align:center">MsSQL</td>
+<td style="text-align:center">PG_SLEEP(5)   OR  GENERATE_SERIES(1,10000)</td>
+</tr>
+<tr>
+<td style="text-align:center">PostgreSQL</td>
+<td style="text-align:center">WAITFOR  DELAY  ‘0:0:5’</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><u>refer:  mysql注入天书，百度一下就能找到</u></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>梦想还是要有的，万一实现了呢？</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.JPG" alt="Edward Choi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.JPG" alt="Edward Choi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>Post author:</strong>
+      Edward Choi
+    </li>
+    <li class="post-copyright-link">
+      <strong>Post link:</strong>
+      <a href="https://edwardchoijc.github.io/SQLi-基础知识2.html" title="SQLi-盲注的介绍">https://edwardchoijc.github.io/SQLi-基础知识2.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WEB/" rel="tag"># WEB</a>
+          
+            <a href="/tags/SQLi/" rel="tag"># SQLi</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SQLi-基础知识.html" rel="next" title="SQLi-基础知识">
+                <i class="fa fa-chevron-left"></i> SQLi-基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Nmap简介与使用方法.html" rel="prev" title="Nmap简介与使用方法">
+                Nmap简介与使用方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.JPG"
+               alt="Edward Choi" />
+          <p class="site-author-name" itemprop="name">Edward Choi</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/edwardchoijc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于布尔-SQL-盲注-——-构造逻辑判断"><span class="nav-number">1.</span> <span class="nav-text">基于布尔 SQL 盲注 —— 构造逻辑判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#截取字符串"><span class="nav-number">1.0.1.</span> <span class="nav-text">截取字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ASCII转换函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">ASCII转换函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#regexp正则注入"><span class="nav-number">1.0.3.</span> <span class="nav-text">regexp正则注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#like匹配注入"><span class="nav-number">1.0.4.</span> <span class="nav-text">like匹配注入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于报错的-SQL-盲注-——-构造payload让信息通过错误提示回显出来"><span class="nav-number">2.</span> <span class="nav-text">基于报错的 SQL 盲注 —— 构造payload让信息通过错误提示回显出来</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据计数时重复造成的错误"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据计数时重复造成的错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#double数值类型超出范围"><span class="nav-number">2.0.2.</span> <span class="nav-text">double数值类型超出范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIGINT溢出错误"><span class="nav-number">2.0.3.</span> <span class="nav-text">BIGINT溢出错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xpath-语法错误"><span class="nav-number">2.0.4.</span> <span class="nav-text">xpath 语法错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql重复特性"><span class="nav-number">2.0.5.</span> <span class="nav-text">mysql重复特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于时间的-SQL-盲注-——-延时注入"><span class="nav-number">3.</span> <span class="nav-text">基于时间的 SQL 盲注 —— 延时注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-函数"><span class="nav-number">3.0.1.</span> <span class="nav-text">sleep()函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BENCHMARK-函数"><span class="nav-number">3.0.2.</span> <span class="nav-text">BENCHMARK()函数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Edward Choi</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "515410b51a7a46f7b3a5f10a31e5bad7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
